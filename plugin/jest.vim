@@ -42,19 +42,14 @@ function! JestList() abort
     \ }
   let s:jest_list = ['']
 
-  "TODO Make callback plugable
   function! OnExit(job_id, data, event)
     let l:trimmed_values = filter(s:jest_list, function('s:no_yarn'))
-    echom get(g:, 'jest_list_callback')
-    " if get(g:, 'jest_list_callback')
-      " echom "callback found"
-      call g:jest_list_callback(l:trimmed_values)
-      " setqflist(map(l:trimmed_values, function('s:prep_qf'))))
-          " else
-      " echom No callback found"
-      " call
-      " exec ':copen'
-    " endif
+      if exists('g:Jest_list_callback')
+        call g:Jest_list_callback(l:trimmed_values)
+      else
+        call setqflist(map(l:trimmed_values, function('s:prep_qf')))
+        exec ':copen'
+      endif
   endfunction
 
   function! OnEvent(job_id, data, event)
