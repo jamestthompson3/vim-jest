@@ -20,24 +20,24 @@ Section 1: Usage                                       *JestUsage*
 
 This plugin provides some functionality around the Jest testing library. It includes the following functions:
 
-JestList                                  *JestList*
+JestList                                               *JestList*
 
 Lists all tests available by using `jest --listTests`. The default action for this is to populate the quickfix list.
 However, you can cutomize this by using the `g:Jest_list_callback` variable.
 
-RunJest                                  *RunJest*
+RunJest                                               *RunJest*
 
 Runs all tests available by using `jest`. Opens a new terminal drawer to do so.
 
-JestWatch                                  *JestWatch*
+JestWatch                                             *JestWatch*
 
 Starts jest in watch mode
 
-JestTest                                  *JestTest*
+JestTest                                              *JestTest*
 
 Tests only the file passed to it as an argument.
 
-RunCurrentFile                                  *RunCurrentFile*
+RunCurrentFile                                       *RunCurrentFile*
 
 Tests the current file loaded in the buffer. If the file is not a test file, it attempts to find all related tests to it and run those.
 ====================================================================
@@ -48,7 +48,7 @@ nmap <silent>rcf :call RunCurrentFile()<CR>
 ====================================================================
 Section 2: Configuration                                *JestConfig*
 
-g:Jest_list_callback                                   *g:Jest_list_callback*
+g:Jest_list_callback                                    *g:Jest_list_callback*
 
 This variable is a funcref whose ref is passed as a call back to JestList.
 It recieves the list of tests as an argument.
@@ -62,7 +62,7 @@ g:jest_global_executable                                *g:jest_global_executabl
 A string denoting the path of the global execuatable to be used.
 
 ====================================================================
-Section 3: Credits                                *JestCreds*
+Section 3: Credits                                     *JestCreds*
 
 
 A HUGE shout out to w0rp <devw0rp@gmail.com>. The util functions in this plugin are modified versions of the ones he uses for ALE.
