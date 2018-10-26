@@ -1,3 +1,9 @@
+" Author: t_t <jamestthompson3@gmail.com>
+" Description: Vim editor bindings for the Jest testing library
+"
+
+let g:jest_use_global = 0
+" let g:jest_javascript_executable = 0
 " Runs jobs in the terminal using QFList dimensions
 function! s:run_term(jobString)
   execute ':copen'
@@ -12,6 +18,13 @@ function! s:no_yarn(idx, value)
   else
     return 1
   endif
+endfunction
+
+function! s:get_jest_executable(buffer) abort
+  let l:executable = jest#utils#FindNodeExecutable(a:buffer, 'javascript', [
+        \ 'node_modules/.bin/jest',
+        \])
+  return l:executable
 endfunction
 
 " Prepares a list of items to be pushed to the QFList
@@ -30,8 +43,19 @@ endfunction
 function! JestTest(file_name)
     let l:pos = stridx(a:file_name, ' ')
     let l:file_path = a:file_name[l:pos+1:-1]
-    call s:run_term(printf('yarn jest %s', substitute(l:file_path, '\\', '/', 'g')))
+    call s:run_term(printf('%s %s', s:get_jest_executable(bufnr('%')), substitute(l:file_path, '\\', '/', 'g')))
 endfunction
+
+function! RunJest() abort
+  let l:executable = s:get_jest_executable(bufnr('%'))
+  call s:run_term(l:executable)
+endfunction
+
+function! JestWatch() abort
+  let l:executable = s:get_jest_executable(bufnr('%'))
+  call s:run_term(printf('%s, --watch',l:executable))
+endfunction
+
 
 " Lists all tests found in the project, takes an argument of what to do with
 " said list, defaults to populating the QFList
@@ -57,12 +81,12 @@ function! JestList() abort
     call extend(s:jest_list, a:data[1:])
   endfunction
 
-  call jobstart('yarn jest --listTests', l:callbacks)
+  call jobstart(printf('%s --listTests', s:get_jest_executable(bufnr('%'))), l:callbacks)
 endfunction
 
 function! RunCurrentFile() abort
   let l:fileName = expand('%:t')
-  call runTerm(printf('yarn jest %s', l:fileName))
+  call s:run_term(printf('%s jest %s', s:get_jest_executable(bufnr('%')) l:fileName))
 endfunction
 
 nmap <silent>rcf :call RunCurrentFile()<CR>

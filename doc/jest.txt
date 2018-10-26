@@ -1,0 +1,71 @@
+*jest.txt* vim functionality for the Jest testing library
+        _                _           __
+ _   __(_)___ ___       (_)__  _____/ /_
+| | / / / __ `__ \     / / _ \/ ___/ __/
+| |/ / / / / / / /    / /  __(__  ) /_
+|___/_/_/ /_/ /_/  __/ /\___/____/\__/
+                  /___/
+
+        Vim Functionality for the Jest testing library.
+====================================================================
+CONTENTS                                            *JestContents*
+
+    1. Usage ................ |JestUsage|
+    2. Mappings ............. |JestMappings|
+    3. Configuration ........ |JestConfiguration|
+    3. Credits .............. |JestCredits|
+
+====================================================================
+Section 1: Usage                                       *JestUsage*
+
+This plugin provides some functionality around the Jest testing library. It includes the following functions:
+
+JestList                                  *JestList*
+
+Lists all tests available by using `jest --listTests`. The default action for this is to populate the quickfix list.
+However, you can cutomize this by using the `g:Jest_list_callback` variable.
+
+RunJest                                  *RunJest*
+
+Runs all tests available by using `jest`. Opens a new terminal drawer to do so.
+
+JestWatch                                  *JestWatch*
+
+Starts jest in watch mode
+
+JestTest                                  *JestTest*
+
+Tests only the file passed to it as an argument.
+
+RunCurrentFile                                  *RunCurrentFile*
+
+Tests the current file loaded in the buffer. If the file is not a test file, it attempts to find all related tests to it and run those.
+====================================================================
+Section 2: Mappings                                       *JestMaps*
+
+nmap <silent>rcf :call RunCurrentFile()<CR>
+
+====================================================================
+Section 2: Configuration                                *JestConfig*
+
+g:Jest_list_callback                                   *g:Jest_list_callback*
+
+This variable is a funcref whose ref is passed as a call back to JestList.
+It recieves the list of tests as an argument.
+
+g:jest_use_global                                       *g:jest_use_global*
+
+If set to 1, this will use the global jest config, found where `g:jest_global_executable` is found.
+
+g:jest_global_executable                                *g:jest_global_executable*
+
+A string denoting the path of the global execuatable to be used.
+
+====================================================================
+Section 3: Credits                                *JestCreds*
+
+
+A HUGE shout out to w0rp <devw0rp@gmail.com>. The util functions in this plugin are modified versions of the ones he uses for ALE.
+If you like this project, you will love ALE. w0rp's blog post 'Vim Script for the JavaScripter' was also very helpful in writing this plugin.
+
+
