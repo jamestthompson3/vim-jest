@@ -1,5 +1,5 @@
 # vim-jest
-Neovim plugin for the jest testing library
+Neovim plugin for the jest testing library. Install using the plugin manager of your choice.
 
 ## Available Functions
 #### JestList
