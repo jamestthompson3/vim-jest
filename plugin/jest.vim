@@ -54,6 +54,7 @@ endfunction
 function! JestWatch() abort
   let l:executable = s:get_jest_executable(bufnr('%'))
   call s:run_term(printf('%s, --watch',l:executable))
+  call feedkeys('i')
 endfunction
 
 
@@ -86,7 +87,11 @@ endfunction
 
 function! RunCurrentFile() abort
   let l:fileName = expand('%:t')
-  call s:run_term(printf('%s jest %s', s:get_jest_executable(bufnr('%')) l:fileName))
+  if stridx(l:fileName, 'test') >= 0
+    call s:run_term(printf('%s %s', s:get_jest_executable(bufnr('%')), l:fileName))
+  else
+    call s:run_term(printf('%s t="%s"', s:get_jest_executable(bufnr('%')), l:fileName))
+  endif
 endfunction
 
 nmap <silent>rcf :call RunCurrentFile()<CR>
