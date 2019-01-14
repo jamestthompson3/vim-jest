@@ -6,7 +6,7 @@ let g:jest_use_global = 0
 " let g:jest_javascript_executable = 0
 " Runs jobs in the terminal using QFList dimensions
 function! s:run_term(jobString)
-  execute ':copen'
+  execute 'copen'
   call termopen(a:jobString)
 endfunction
 
@@ -73,7 +73,7 @@ function! JestList() abort
         call g:Jest_list_callback(l:trimmed_values)
       else
         call setqflist(map(l:trimmed_values, function('s:prep_qf')))
-        exec ':copen'
+        exec 'copen'
       endif
   endfunction
 
@@ -93,5 +93,3 @@ function! RunCurrentFile() abort
     call s:run_term(printf('%s t="%s"', s:get_jest_executable(bufnr('%')), l:fileName))
   endif
 endfunction
-
-nmap <silent>rcf :call RunCurrentFile()<CR>
